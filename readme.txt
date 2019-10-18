@@ -1,8 +1,8 @@
-ʱ�䣺2019.10.12
-�ص㣺��
+时间：2019.10.12
+地点：家
 
-���⣺��װgitbash
+主题：安装gitbash
 
-���ݣ�
+内容：
     
-    hello��world��
+    hello，world！ 
