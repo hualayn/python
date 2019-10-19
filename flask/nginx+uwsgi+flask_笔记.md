@@ -39,21 +39,25 @@ Flask 现在已经安装完毕。
 <h3>一个最小的应用</h3>
 一个最小的应用看起来像这样:
 
->from flask import Flask
->app = Flask(__name__)
+>from flask import Flask<br>
+>app = Flask(__name__)<br>
+>@app.route('/')<br>
+>def hello_world():<br>
+>    return 'Hello World!'<br>
 
->@app.route('/')
->def hello_world():
->    return 'Hello World!'
+>if __name__ == '__main__':<br>
+>    app.run()
 
->if __name__ == '__main__':
->    app.run()<br>
 把它保存成 hello.py (或者类似的文件)，然后用 Python 解释器运行它。确保你的应用不叫做 flask.py， 因为这会与 Flask 本身冲突。
 
 >$ python hello.py
 > \* Running on http://127.0.0.1:5000/<br>
-现在浏览 http://127.0.0.1:5000/，你会看到你的 Hello World 问候。
+现在浏览 http://127.0.0.1:5000/，你会看到你的 Hello World 问候。<br>
 **(注意防火墙应开启相应端口)**
 ---
-##uwsgi
+## uwsgi
 
+test crlf
+看看会不会换行
+试试
+this is a test!
