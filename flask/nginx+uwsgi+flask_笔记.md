@@ -45,12 +45,12 @@ Flask 现在已经安装完毕。
 #####代码示例
 
 >from flask import Flask<br>
->app = Flask(__name__)<br>
+>app = Flask(\_\_name\_\_)<br>
 >@app.route('/')<br>
 >def hello_world():<br>
 >    return 'Hello World!'<br>
 
->if __name__ == '__main__':<br>
+>if \_\_name\_\_ == '\_\_main\_\_':<br>
 >    app.run()
 
 把它保存成 hello.py (或者类似的文件)，然后用 Python 解释器运行它。确保你的应用不叫做 flask.py， 因为这会与 Flask 本身冲突。
