@@ -1,0 +1,33 @@
+{# 继承父网页中的block #}
+{% extends 'base.html' %}
+
+{# 替换（重写）名称为header的block #}
+{% block title %}
+    my blog
+{% endblock %}
+
+{# 替换（重写）名称为content的block #}
+
+{% block content %}
+    {{ super() }}
+    {% if g.user %}
+        <form action="{{ url_for('blog.write_article') }}" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>发布文章：</td>
+                    </tr>
+                    <tr>
+                        <td><label for="title" >标题：</label></td>
+                        <td><input name="title" id="title" required></td>
+                    </tr>
+                    <tr>
+                        <td valign="top"><label for="content"></label>内容：</td>
+                        <td><textarea name="content" id="content" cols="30" rows="10"></textarea></td>
+                    </tr>
+                    <tr><td></td><td align="right"><input type="submit" value="提交"></td></tr>
+                </tbody>
+            </table>
+        </form>
+    {% endif %}
+{% endblock %}

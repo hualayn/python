@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}Title{% endblock %}
+    </title>
+</head>
+<header>
+    <div>我的博客</div>
+    <div align="right">
+        {% if g.user %}
+            欢迎,{{ g.user["name"] }}
+        {% endif %}
+    </div>
+</header>
+<body>
+<hr>
+{# 注释方式使用{# 内容 #\} #}
+
+{# 使用block的方式，让子模块对这些block模块进行继承、替换，
+    block 后面接的是名称，子模块会按照相对应的名称进行替换
+#}
+{% block content %}
+    {% if posts %}
+      {% for post in posts %}
+          <table>
+            <tr bgcolor="#f0f8ff"><td>标题：{{ post.title }}</td></tr>
+            <tr bgcolor="#ff7f50"><td style=”word-wrap:break-word;word-break:break-all;”>{{ post.content }}</td></tr>
+
+          </table>
+
+      {% endfor %}
+    {% else %}
+      <h3>无文章</h3>
+    {% endif %}
+{% endblock %}
+</body>
+<footer>
+    <hr>
+    <p align="center">2019.10 homehua</p>
+</footer>
+</html>
