@@ -1,20 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>
         {% block title %}Title{% endblock %}
     </title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
 </head>
 <header>
-    <div>我的博客</div>
-    <div align="right">
-        {% if g.user %}
-            欢迎,{{ g.user["name"] }}
-        {% endif %}
-    </div>
+    <nav class="navbar" role="navigation">
+        <div class="navbar-header nav"><span style="font-size: x-large"><a href="{{ url_for('blog.index') }}">我的博客</a></span></div>
+            {% if g.user %}
+                <div class="dropdown pull-right">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                        欢迎，{{ g.user.name }}
+                        <span class="caret"></span>
+                    </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="{{ url_for('blog.index') }}">主页</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('auth.log_out') }}">登出账户</a></li>
+                        </ul>
+                </div>
+            {% else %}
+                <div class="dropdown pull-right">
+                    <a href="{{ url_for('auth.login') }}">
+                        <button type="button" class="btn btn-info">登录账户</button>
+                    </a>
+                </div>
+            {% endif %}
+    </nav>
 </header>
-<body>
+<body class="container">
 <hr>
 {# 注释方式使用{# 内容 #\} #}
 
@@ -23,20 +50,35 @@
 #}
 {% block content %}
     {% if posts %}
-      {% for post in posts %}
-          <table>
-            <tr bgcolor="#f0f8ff"><td>标题：{{ post.title }}</td></tr>
-            <tr bgcolor="#ff7f50"><td style=”word-wrap:break-word;word-break:break-all;”>{{ post.content }}</td></tr>
+        {% for post in posts %}
+            <div class="table table-bordered col-lg-4">
+                <div>
+                    <span>标题：</span>
+                <span>{{ post.title }}</span>
+                </div>
+                <div>
+                    <span></span><span>{{ post.content }}</span>
+                </div>
+                <div class="pull-right">
+                    <span>{{ post.user.name }}</span>
+                    <span>
+                        {% if post.user.name == g.user.name %}
+                            <a href="{{ url_for('auth.del_post', post_id=post.id) }}">删除</a>
+                        {% endif %}
+                    </span>
+                    <span>( {{ post.committime.strftime("%Y-%m-%d %H:%M:%S") }} )</span>
 
-          </table>
-
-      {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
     {% else %}
       <h3>无文章</h3>
     {% endif %}
 {% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 </body>
-<footer>
+<footer class="modal-footer col-lg-12">
     <hr>
     <p align="center">2019.10 homehua</p>
 </footer>

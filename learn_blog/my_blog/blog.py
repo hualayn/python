@@ -49,7 +49,7 @@ def write_article():
             except Exception as e:
                 print(e)
                 db.session.rollback()
-            else:
+            finally:
                 return redirect(url_for('blog.index'))
     else:
         return redirect(url_for('blog.index'))

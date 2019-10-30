@@ -5,7 +5,7 @@ from flask import redirect, url_for
 from flask import g, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from my_blog.db import db, User
+from my_blog.db import db, User, Post
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -36,16 +36,17 @@ def login():
         error = None
 
         if user is None:
-            error = '没有该用户！'
+            error = '账号与密码不相符哦！'
+
         elif not check_password_hash(user.password, password):
-            error = '密码不正确！'
+            error = '账号与密码不相符哦！'
 
         if error is None:
             session.clear()
             session["login_user_id"] = user.id
             return redirect(url_for('blog.index'))
-
-        return error
+        else:
+            return render_template('error/error.html', error=error)
 
     else:
         return render_template('auth/login.html')
@@ -84,11 +85,36 @@ def register():
                 # return '注册成功'
                 return redirect(url_for('auth.login'))
 
-        return error
+        return render_template('error/error.html', error=error)
 
     return render_template('auth/register.html')
 
 @bp.route('/logout/', methods=('GET', 'POST'))
 def log_out():
     session.clear()
+    return redirect(url_for('blog.index'))
+
+@bp.route('/delete/<post_id>')
+def del_post(post_id):
+    current_user_id = session.get("login_user_id")
+    print(current_user_id)
+    post = Post.query.filter_by(id=post_id).first()
+    if current_user_id is None:
+        error ="请先登录！"
+    else:
+        if post == None:
+            error = '找不到要删除的内容啊'
+        else:
+            if post.author_id == current_user_id:
+                try:
+                    Post.query.filter_by(id=post_id).delete()
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+            else:
+                error = '删除出现重大错误！'
+
+    if error:
+        return render_template('error/error.html', error=error)
+
     return redirect(url_for('blog.index'))

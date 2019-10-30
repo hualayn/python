@@ -12,20 +12,23 @@
     {{ super() }}
     {% if g.user %}
         <form action="{{ url_for('blog.write_article') }}" method="post">
-            <table>
+            <table class="form-group">
                 <tbody>
                     <tr>
-                        <td>发布文章：</td>
+                        发布文章：
                     </tr>
                     <tr>
-                        <td><label for="title" >标题：</label></td>
-                        <td><input name="title" id="title" required></td>
+                        <td class="col-lg-1"><label for="title" >标题：</label></td>
+                        <td><input class="form-control" name="title" id="title" placeholder="输入标题" required></td>
                     </tr>
                     <tr>
-                        <td valign="top"><label for="content"></label>内容：</td>
-                        <td><textarea name="content" id="content" cols="30" rows="10"></textarea></td>
+                        <td class="col-lg-1"><label for="content"></label>内容：</td>
+                        <td><textarea class="form-control" name="content" id="content" placeholder="输入内容" required></textarea></td>
                     </tr>
-                    <tr><td></td><td align="right"><input type="submit" value="提交"></td></tr>
+                    <tr>
+                        <td></td>
+                        <td class="pull-right"><input type="submit" class="btn btn-default form-group" value="提交"></td>
+                    </tr>
                 </tbody>
             </table>
         </form>

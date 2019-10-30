@@ -12,18 +12,20 @@ class User(db.Model):
     name = db.Column(db.String(50), unique=True, nullable=True)
     password = db.Column(db.Text, nullable=False)
     createdtime = db.Column(db.TIMESTAMP, nullable=False, default=datetime.datetime.now)
+    posts = db.relationship('Post', backref='user')
 
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(50), nullable=False, unique=True)
     content = db.Column(db.Text, nullable=False)
-    author_id = db.Column(db.Integer, nullable=False)
     committime = db.Column(db.TIMESTAMP, nullable=False, default=datetime.datetime.now)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 def init_db():
-    db.drop_all()
+    # db.drop_all()
     db.create_all()
+    # print(db.create_all())
 
 # def init_db():
 #     try:
