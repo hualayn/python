@@ -66,7 +66,38 @@ server {
 - 重启nginx服务  
 ./nginx -s reload  
 
-- 注意  
+### 注意  
 - 先启动nginx，再启动gunicorn  
 
 - gunicorn是多线程工作的，如果flask项目中，设置了os.urandom()，那么会因为每次请求不同，线程不同，导致session不同  
+
+### 使用apache bench（ab）对nginx和apache简单测试
+输入命令：ab -n 100 -c 10 http://地址/  
+结果如下：  
+- nginx  
+Concurrency Level:      10  
+Time taken for tests:   2.603 seconds  
+Complete requests:      100  
+Failed requests:        0  
+Write errors:           0  
+Total transferred:      826000 bytes  
+HTML transferred:       810100 bytes  
+Requests per second:    38.42 [#/sec] (mean)  
+Time per request:       260.266 [ms] (mean)  
+Time per request:       26.027 [ms] (mean, across all concurrent requests)  
+Transfer rate:          309.93 [Kbytes/sec] received  
+
+- apache
+Concurrency Level:      10  
+Time taken for tests:   94.315 seconds  
+Complete requests:      100  
+Failed requests:        0  
+Write errors:           0  
+Total transferred:      2427700 bytes  
+HTML transferred:       2407300 bytes  
+Requests per second:    1.06 [#/sec] (mean)  
+Time per request:       9431.504 [ms] (mean)  
+Time per request:       943.150 [ms] (mean, across all concurrent requests)  
+Transfer rate:          25.14 [Kbytes/sec] received  
+
+##### 由于网页大小也有关系，ngixn貌似更快点
