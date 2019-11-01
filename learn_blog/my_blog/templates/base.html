@@ -59,8 +59,8 @@
                 <div>
                     <span></span><span>{{ post.content }}</span>
                 </div>
-                <div class="pull-right">
-                    <span>{{ post.user.name }}</span>
+                <div align="right">
+                    <span>edited by:{{ post.user.name }}</span>
                     <span>
                         {% if post.user.name == g.user.name %}
                             <a href="{{ url_for('auth.del_post', post_id=post.id) }}">删除</a>
