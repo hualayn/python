@@ -69,7 +69,7 @@ server {
 ### 注意  
 - 先启动nginx，再启动gunicorn  
 
-- gunicorn是多线程工作的，如果flask项目中，设置了os.urandom()，那么会因为每次请求不同，线程不同，导致session不同  
+- gunicorn是多线程工作的，如果flask项目中，设置了os.urandom()，那么会因为每次请求不同，线程不同，导致session不同，这可能会导致用户登录方面的问题
 
 ### 使用apache bench（ab）对nginx和apache简单测试
 输入命令：ab -n 100 -c 10 http://地址/  
