@@ -5,7 +5,8 @@ from flask import redirect, url_for
 from flask import g, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from my_blog.db import db, User, Post
+from my_blog import db
+from my_blog.models import User, Post
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 

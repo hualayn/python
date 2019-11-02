@@ -2,7 +2,8 @@ from flask import Blueprint
 from flask import request, session
 from flask import render_template, redirect, url_for
 
-from my_blog.db import db, Post
+from my_blog import db
+from my_blog.models import Post
 
 
 bp = Blueprint('blog', __name__)

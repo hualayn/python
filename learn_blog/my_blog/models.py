@@ -1,10 +1,7 @@
-from my_blog import app
-
-# import sqlite3
-from flask_sqlalchemy import SQLAlchemy
+from my_blog import db
 import datetime
-
-db = SQLAlchemy(app)
+# 有了SQLAlchemy，就不用引用sqlite3来连接sqlite数据库了
+# import sqlite3
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -21,11 +18,6 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     committime = db.Column(db.TIMESTAMP, nullable=False, default=datetime.datetime.now)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-def init_db():
-    # db.drop_all()
-    db.create_all()
-    # print(db.create_all())
 
 # def init_db():
 #     try:

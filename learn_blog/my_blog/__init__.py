@@ -5,9 +5,12 @@ app = Flask(__name__)
 # 通过这个设置来一次性引用在config.py中设置的参数
 app.config.from_pyfile('config.py')
 
-# 初始化数据库，建立表格
-from my_blog.db import init_db
-init_db()
+# 建立数据库连接
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy(app)
+# 初始化数据库
+# db.drop_all()
+# db.create_all()
 
 # 使用蓝图（blueprint），使整个代码的布局更加清晰
 import my_blog.blog
