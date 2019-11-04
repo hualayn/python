@@ -26,7 +26,7 @@ def internal_error(e):
 
 @bp.route('/', methods=('GET', 'POST'))
 def index():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.committime.desc()).all()
     # login_user = session.get('login_user_id')
     # if session.get('login_user_id') is None:
     #     print('no user logged in')

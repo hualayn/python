@@ -47,9 +47,7 @@ pip install supervisor
 	- 修改supervisord.conf文件（官方建议）  
 	把/tmp文件夹修改为另一个文件夹，比如/usr/run/supervisor文件夹内，然后在这个文件夹内创建文件  
 	touch supervisor.sock   
-    ##### 注意，如果不需要使用http的方式管理supervisor，那么[supervisorctl]里的/tmp文件夹就不用修改  
-
-
+    
 	- 为了方便，可以创建一个软连接到python下的supervisord和supervisorctl  
 	ln -s /dir/to/path/supervisord /usr/local/bin  
 	ln -s /dir/to/path/supervisorctl /usr/local/bin
