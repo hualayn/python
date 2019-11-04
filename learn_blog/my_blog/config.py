@@ -7,9 +7,12 @@
 
 # 调试模式
 DEBUG = True
+
+# 外网也可以访问
 HOST = '0.0.0.0'
 
 # session模块需要使用SECRET_KEY，利用os.urandom(24)来产生一个24位的随机字符串
+# 在gunicorn中，由于多线程会造成secretkey不同，所以设置为固定值
 SECRET_KEY = 'dev'
 
 # 不需要重启服务器，自动加载模板，方便调试

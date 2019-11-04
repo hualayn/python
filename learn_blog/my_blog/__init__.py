@@ -5,12 +5,18 @@ app = Flask(__name__)
 # 通过这个设置来一次性引用在config.py中设置的参数
 app.config.from_pyfile('config.py')
 
+# 可以使用from_object来引用config文件，注意与上面方法的不同
+# import config
+# app.config.from_object(config)
+
 # 建立数据库连接
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(app)
 # 初始化数据库
-# db.drop_all()
-# db.create_all()
+# 必须引用User和Post模型，否则会找不到这2张表格，无法进行后续操作
+# from my_blog.models import User, Post
+db.drop_all()
+db.create_all()
 
 # 使用蓝图（blueprint），使整个代码的布局更加清晰
 import my_blog.blog
