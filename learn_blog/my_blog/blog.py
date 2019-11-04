@@ -1,6 +1,9 @@
 from flask import Blueprint
 from flask import request, session
 from flask import render_template, redirect, url_for
+from flask import Markup
+import markdown2
+from my_blog import app
 
 from my_blog import db
 from my_blog.models import Post
@@ -18,6 +21,13 @@ def page_not_found(e):
 @bp.app_errorhandler(500)
 def internal_error(e):
     return render_template('error/404.html'), 500
+
+@app.template_filter('trans_to_markdown')
+def trans_to_markdown(markdown_content):
+    content = Markup(markdown2.markdown(markdown_content, extras=["tables"]))
+    return content
+
+
 
 # 当蓝图时，不能使用errorhandler(404)钩子，只能使用全局的app_errorhandler钩子来触发函数page_not_found执行
 # @bp.errorhandler(404)
@@ -50,7 +60,7 @@ def write_article():
             except Exception as e:
                 print(e)
                 db.session.rollback()
-            finally:
-                return redirect(url_for('blog.index'))
-    else:
-        return redirect(url_for('blog.index'))
+                error = "请不要重复提交"
+                return render_template('error/error.html', error=error)
+
+    return redirect(url_for('blog.index'))

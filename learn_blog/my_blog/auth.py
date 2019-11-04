@@ -98,8 +98,8 @@ def log_out():
 @bp.route('/delete/<post_id>')
 def del_post(post_id):
     current_user_id = session.get("login_user_id")
-    print(current_user_id)
     post = Post.query.filter_by(id=post_id).first()
+    error = None
     if current_user_id is None:
         error ="请先登录！"
     else:
@@ -111,6 +111,7 @@ def del_post(post_id):
                     Post.query.filter_by(id=post_id).delete()
                     db.session.commit()
                 except Exception as e:
+                    print(e)
                     db.session.rollback()
             else:
                 error = '删除出现重大错误！'

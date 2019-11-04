@@ -52,12 +52,12 @@
     {% if posts %}
         {% for post in posts %}
             <div class="table table-bordered">
-                <div>
+                <div style="background-color: #d6e9c6">
                     <span>标题：</span>
                 <span>{{ post.title }}</span>
                 </div>
                 <div>
-                    <span></span><span>{{ post.content }}</span>
+                    <span></span><span>{{ post.content | trans_to_markdown }}</span>
                 </div>
                 <div align="right">
                     <span>edited by:{{ post.user.name }}</span>
