@@ -19,7 +19,7 @@
             *********************************************************************************
 
 - 安装wheel
-    再终端下pip install wheel，顺利安装成功
+    在终端下：pip install wheel，顺利安装成功
 
 - 下载lxml  
     https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml  
