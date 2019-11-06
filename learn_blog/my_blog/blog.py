@@ -1,9 +1,21 @@
 from flask import Blueprint
 from flask import request, session
 from flask import render_template, redirect, url_for
-from flask import Markup
-import markdown2
+
 from my_blog import app
+
+# 1.markdown2的方法，渲染页面
+# from flask import Markup
+# import markdown2
+# @app.template_filter('trans_to_markdown')
+# def trans_to_markdown(markdown_content):
+#     content = Markup(markdown2.markdown(markdown_content, extras=["tables"]))
+#     return content
+
+# 2.Markdown方法，渲染页面
+from flaskext.markdown import Markdown
+Markdown(app)
+
 
 from my_blog import db
 from my_blog.models import Post
@@ -22,10 +34,7 @@ def page_not_found(e):
 def internal_error(e):
     return render_template('error/404.html'), 500
 
-@app.template_filter('trans_to_markdown')
-def trans_to_markdown(markdown_content):
-    content = Markup(markdown2.markdown(markdown_content, extras=["tables"]))
-    return content
+
 
 
 

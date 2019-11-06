@@ -57,7 +57,7 @@
                 <span>{{ post.title }}</span>
                 </div>
                 <div>
-                    <span></span><span>{{ post.content | trans_to_markdown }}</span>
+                    <span></span><span>{{ post.content | markdown }}</span>
                 </div>
                 <div align="right">
                     <span>edited by:{{ post.user.name }}</span>

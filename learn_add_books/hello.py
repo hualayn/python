@@ -41,7 +41,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # 配置数据库地址
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://flask_blog:123456@localhost/blog_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://用户名:密码@localhost/数据库名'
 
 #配置数据库修改
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
